@@ -12,7 +12,9 @@ interface AuctionViewProps {
 
 const AuctionView: React.FC<AuctionViewProps> = ({ auction }) => {
     const { user } = useAuth();
-    const { data, error, loading } = useRealtime(auction.id);
+    const websocketUrl = process.env.NEXT_PUBLIC_WEBSOCKET_URL || 'ws://localhost:3001'; // Fallback for local development
+    const fullSocketUrl = `${websocketUrl}/auction/${auction.id}`;
+    const { data, error, loading } = useRealtime(fullSocketUrl);
 
     if (loading) {
         return <div>Chargement...</div>;

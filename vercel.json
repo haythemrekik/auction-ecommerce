@@ -1,0 +1,49 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/backend/src/main.ts"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-Requested-With, Content-Type, Authorization"
+        }
+      ]
+    }
+  ],
+  "build": {
+    "env": {
+      "PRISMA_SCHEMA_PATH": "prisma/schema.prisma"
+    }
+  },
+  "functions": {
+    "backend/src/main.ts": {
+      "runtime": "nodejs20.x",
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "installCommand": "npm install --prefix backend && npm install --prefix frontend",
+  "buildCommand": "npm run build --prefix backend && npm run build --prefix frontend",
+  "outputDirectory": "frontend/.next",
+  "devCommand": "npm run dev --prefix frontend",
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "JWT_SECRET": "@jwt_secret",
+    "API_URL": "https://YOUR_VERCEL_APP_URL/api",
+    "NEXT_PUBLIC_WEBSOCKET_URL": "wss://YOUR_WEBSOCKET_SERVER_URL"
+  }
+}

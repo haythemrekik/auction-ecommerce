@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-const useRealtime = (socketUrl) => {
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+const useRealtime = (socketUrl: string) => {
+    const [data, setData] = useState<any>(null);
+    const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
@@ -10,16 +10,20 @@ const useRealtime = (socketUrl) => {
 
         socket.onopen = () => {
             console.log('WebSocket connection established');
-        };
-
-        socket.onmessage = (event) => {
-            const parsedData = JSON.parse(event.data);
-            setData(parsedData);
             setLoading(false);
         };
 
+        socket.onmessage = (event) => {
+            try {
+                const parsedData = JSON.parse(event.data);
+                setData(parsedData);
+            } catch (e) {
+                setError('Error parsing WebSocket data');
+            }
+        };
+
         socket.onerror = (event) => {
-            setError('WebSocket error: ' + event.message);
+            setError('A WebSocket error occurred.');
             setLoading(false);
         };
 
