@@ -1,6 +1,14 @@
 import React from 'react';
 
-const WalletWidget: React.FC<{ balance: number }> = ({ balance }) => {
+interface WalletWidgetProps {
+    balance?: number;
+}
+
+const WalletWidget: React.FC<WalletWidgetProps> = ({ balance }) => {
+    if (typeof balance === 'undefined') {
+        return null;
+    }
+
     return (
         <div className="wallet-widget">
             <h3>Votre Solde de Crocos</h3>

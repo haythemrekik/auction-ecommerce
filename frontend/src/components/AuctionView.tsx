@@ -3,8 +3,15 @@ import useRealtime from '../hooks/useRealtime';
 import BniGauge from './BniGauge';
 import BidButton from './BidButton';
 import WalletWidget from './WalletWidget';
+import { useAuth } from '../contexts/AuthContext';
+import { Auction } from '../types';
 
-const AuctionView = ({ auction }) => {
+interface AuctionViewProps {
+    auction: Auction;
+}
+
+const AuctionView: React.FC<AuctionViewProps> = ({ auction }) => {
+    const { user } = useAuth();
     const { data, error, loading } = useRealtime(auction.id);
 
     if (loading) {
@@ -24,9 +31,9 @@ const AuctionView = ({ auction }) => {
             <p>Valeur Marché: {auction.marketValue} DT</p>
             <p>Prix Actuel: {currentBid} DT</p>
             <p>Temps Restant: {timeLeft} secondes</p>
-            <BniGauge userBids={bids} />
+            <BniGauge currentCrocos={bids} requiredCrocos={auction.marketValue} />
             <BidButton auctionId={auction.id} />
-            <WalletWidget />
+            {user && <WalletWidget balance={user.credits} />}
         </div>
     );
 };

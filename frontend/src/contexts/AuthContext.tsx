@@ -1,29 +1,33 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { User } from '../types';
 
 interface AuthContextType {
-  user: any; // Replace 'any' with a specific user type if available
-  login: (userData: any) => void; // Replace 'any' with a specific type for userData
+  user: User | null;
+  login: (userData: User) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<any>(null); // Replace 'any' with a specific user type if available
+  const [user, setUser] = useState<User | null>(null);
 
-  const login = (userData: any) => {
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const login = (userData: User) => {
+    localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
-    // Additional logic for storing user data (e.g., localStorage)
   };
 
   const logout = () => {
+    localStorage.removeItem('user');
     setUser(null);
-    // Additional logic for clearing user data (e.g., localStorage)
   };
-
-  useEffect(() => {
-    // Logic to check for existing user session (e.g., from localStorage)
-  }, []);
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
