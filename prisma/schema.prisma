@@ -1,0 +1,48 @@
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  credits   Float    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id            Int      @id @default(autoincrement())
+  name          String
+  description   String
+  marketValue   Float
+  costOfGoods   Float
+  reservePrice  Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Auction {
+  id            Int      @id @default(autoincrement())
+  productId     Int
+  startTime     DateTime @default(now())
+  endTime       DateTime
+  currentPrice  Float    @default(0)
+  bids          Bid[]
+  product       Product  @relation(fields: [productId], references: [id])
+}
+
+model Bid {
+  id        Int      @id @default(autoincrement())
+  auctionId Int
+  userId    Int
+  amount    Float
+  createdAt DateTime @default(now())
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Credit {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  amount    Float
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}

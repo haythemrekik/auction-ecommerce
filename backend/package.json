@@ -1,0 +1,40 @@
+{
+  "name": "auction-ecommerce-backend",
+  "version": "1.0.0",
+  "description": "Backend for the auction e-commerce platform with competitive bidding and store credit system.",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "build": "tsc",
+    "dev": "ts-node-dev src/main.ts",
+    "lint": "eslint . --ext .ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@nestjs/common": "^8.0.0",
+    "@nestjs/core": "^8.0.0",
+    "@nestjs/platform-express": "^8.0.0",
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "jsonwebtoken": "^8.5.1",
+    "prisma": "^3.0.0",
+    "socket.io": "^4.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^8.0.0",
+    "@types/react": "19.2.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.0.0",
+    "ts-jest": "^27.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.5.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "license": "MIT"
+}

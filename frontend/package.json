@@ -1,0 +1,24 @@
+{
+  "name": "auction-ecommerce-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "socket.io-client": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^15.0.0",
+    "typescript": "^5.1.0"
+  }
+}
