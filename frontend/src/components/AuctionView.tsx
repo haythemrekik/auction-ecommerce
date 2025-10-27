@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRealtime } from '../hooks/useRealtime';
+import useRealtime from '../hooks/useRealtime';
 import BniGauge from './BniGauge';
 import BidButton from './BidButton';
 import WalletWidget from './WalletWidget';
