@@ -5,7 +5,17 @@ import BidButton from './BidButton';
 import WalletWidget from './WalletWidget';
 
 const AuctionView = ({ auction }) => {
-    const { currentBid, bids, timeLeft } = useRealtime(auction.id);
+    const { data, error, loading } = useRealtime(auction.id);
+
+    if (loading) {
+        return <div>Chargement...</div>;
+    }
+
+    if (error) {
+        return <div>Erreur: {error}</div>;
+    }
+
+    const { currentBid, bids, timeLeft } = data;
 
     return (
         <div className="auction-view">
